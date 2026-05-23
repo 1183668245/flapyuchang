@@ -3,8 +3,8 @@ window.APP_CONFIG = {
   chainName: "BNB Smart Chain",
   rpcName: "BNB Smart Chain",
   rpcUrl: "https://rpc.ankr.com/bsc/b106d516d94b3420384aa9e1ffb2e3ae9a2f161396ab8f0c076e4eaef2777a2c",
-  vaultAddress: "__MAINNET_VAULT_ADDRESS__",
-  tokenAddress: "__MAINNET_TOKEN_ADDRESS__",
+  vaultAddress: "0x08F68f0C8D9Ff6df800F19a59F164C9456e8F8b0",
+  tokenAddress: "0x7d3e604a93a67177cbfc22984fd75679f5547777",
 
   seedConfigs: {
     0: {
