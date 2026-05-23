@@ -279,7 +279,7 @@ async function pollActivityFeed() {
         nextItems.push({
           key,
           type: "steal",
-          text: `${formatAddress(thief)} 偷捕 ${formatAddress(victim)} 的 ${plotId + 1}号塘 · +${stolenTickets.toString()} 积分`
+          text: `${formatAddress(thief)} 偷捕 ${formatAddress(victim)} 的 ${plotId + 1}号塘 · +${formatUnits(stolenTickets, 18)} 积分`
         });
       }
     } catch {
