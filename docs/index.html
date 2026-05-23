@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flap渔场</title>
+  <link rel="icon" type="image/webp" href="./jpg/favicon.ico.webp" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="./css/landing.css" />
+</head>
+<body class="is-home">
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <div class="brand">
+        <img class="brand-logo-img" src="./jpg/logo.webp" alt="Flap渔场" />
+        <div class="brand-text">Flap渔场</div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#hero">首页</a>
+        <a href="#guide" id="openGuideNavBtn">玩法</a>
+        <a href="#seedZone">鱼苗</a>
+        <a href="#rules">奖池</a>
+        <a href="#faq" id="openFaqBtn">FAQ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="connectBtn" class="btn btn-dark">连接钱包</button>
+        <a href="./play.html" class="btn btn-primary">进入渔场</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="hero" class="hero">
+      <div class="hero-left">
+        <div class="hero-badge">Flap链上互动渔场</div>
+        <h1>养鱼、偷捕、起网，<br />按<span class="hero-title-accent">渔获积分</span>分奖池。</h1>
+        <p>
+          Flap渔场是一个鱼塘经营 + 偷捕博弈 + 周期分红的链上互动玩法。
+        </p>
+
+        <div class="hero-buttons">
+          <a href="./play.html" class="btn btn-primary hero-btn-primary"><span class="hero-btn-icon"><img src="./jpg/素材/开始.webp" alt="开始游戏" /></span><span>开始游戏</span></a>
+          <button id="openGuideBtn" class="btn btn-dark hero-btn-secondary" type="button"><span class="hero-btn-icon hero-btn-icon-outline">◉</span><span>查看玩法</span></button>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-card stat-card-icon">
+            <img src="./jpg/素材/最高鱼塘.webp" alt="默认鱼塘" />
+            <div>
+              <div class="stat-label">默认鱼塘</div>
+              <div class="stat-value">3</div>
+            </div>
+          </div>
+          <div class="stat-card stat-card-icon">
+            <img src="./jpg/素材/当前时长.webp" alt="单期时长" />
+            <div>
+              <div class="stat-label">每期时长</div>
+              <div class="stat-value">2小时</div>
+            </div>
+          </div>
+          <div class="stat-card stat-card-icon">
+            <img src="./jpg/素材/最高鱼塘.webp" alt="最高鱼塘" />
+            <div>
+              <div class="stat-label">最高鱼塘</div>
+              <div class="stat-value">8</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-illustration hero-illustration-art">
+          <img class="hero-main-art" src="./jpg/素材/首图.webp" alt="Flap渔场首图" />
+        </div>
+      </div>
+    </section>
+
+    <section id="guide" class="landing-grid">
+      <div class="landing-card">
+        <h3><img src="./jpg/素材/flap.webp" alt="图标" class="landing-card-img" />核心玩法</h3>
+        <div class="landing-feature-grid">
+          <div class="landing-feature-item"><img src="./jpg/素材/买鱼苗.webp" alt="买鱼苗" /><span>购买鱼苗</span></div>
+          <div class="landing-feature-item"><img src="./jpg/素材/投放鱼塘.webp" alt="投放鱼塘" /><span>投放鱼塘</span></div>
+          <div class="landing-feature-item"><img src="./jpg/素材/增氧提速.webp" alt="增氧提速" /><span>增氧提速</span></div>
+          <div class="landing-feature-item"><img src="./jpg/素材/发起偷捕.webp" alt="发起偷捕" /><span>发起偷捕</span></div>
+        </div>
+      </div>
+      <div id="seedZone" class="landing-card">
+        <h3><span class="landing-card-icon">🐟</span>鱼苗档位</h3>
+        <div class="landing-seed-cards">
+          <div class="landing-seed-card seed-yellow">
+            <div class="seed-card-head">
+              <img src="./jpg/素材/小黄鱼.webp" alt="小黄鱼" />
+              <strong>小黄鱼</strong>
+            </div>
+            <div class="seed-card-body">
+              <div class="seed-attr"><span>成长时间</span><em>15分钟</em></div>
+              <div class="seed-attr"><span>鱼苗价格</span><em>10,000 枚代币</em></div>
+              <div class="seed-attr"><span>基础积分</span><em>1</em></div>
+              <div class="seed-attr"><span>增氧价格</span><em>0.001 BNB</em></div>
+            </div>
+          </div>
+          <div class="landing-seed-card seed-purple">
+            <div class="seed-card-head">
+              <img src="./jpg/素材/海鲈鱼.webp" alt="海鲈鱼" />
+              <strong>海鲈鱼</strong>
+            </div>
+            <div class="seed-card-body">
+              <div class="seed-attr"><span>成长时间</span><em>45分钟</em></div>
+              <div class="seed-attr"><span>鱼苗价格</span><em>50,000 枚代币</em></div>
+              <div class="seed-attr"><span>基础积分</span><em>6</em></div>
+              <div class="seed-attr"><span>增氧价格</span><em>0.003 BNB</em></div>
+            </div>
+          </div>
+          <div class="landing-seed-card seed-blue">
+            <div class="seed-card-head">
+              <img src="./jpg/素材/蓝鳍金枪.webp" alt="蓝鳍金枪" />
+              <strong>蓝鳍金枪</strong>
+            </div>
+            <div class="seed-card-body">
+              <div class="seed-attr"><span>成长时间</span><em>2小时</em></div>
+              <div class="seed-attr"><span>鱼苗价格</span><em>150,000 枚代币</em></div>
+              <div class="seed-attr"><span>基础积分</span><em>22</em></div>
+              <div class="seed-attr"><span>增氧价格</span><em>0.008 BNB</em></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="rules" class="landing-card">
+        <h3><img src="./jpg/素材/奖池规则1.webp" alt="图标" class="landing-card-img" />奖池规则</h3>
+        <div class="landing-rule-layout">
+          <div class="landing-rule-left">
+            <img src="./jpg/素材/奖池规则.webp" alt="奖池规则" />
+            <div class="rule-legend">
+              <div class="legend-item"><span class="dot dot-purple"></span><strong>90%</strong>进入渔场奖池</div>
+              <div class="legend-item"><span class="dot dot-yellow"></span><strong>10%</strong>进入运营池</div>
+            </div>
+          </div>
+          <div class="landing-rule-right">
+            <div class="rule-dividend-card">
+              <img src="./jpg/素材/金币.webp" alt="金币" />
+              <p>个人分红 =<br />本期奖池 × 个人积分占比</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="landing-footer-card">
+      <div>
+        <h3>准备好进入渔场了吗</h3>
+        <p>首页只负责讲清规则和玩法，真正的购买、投苗、增氧、偷捕、起网和领奖都在操作页完成。</p>
+      </div>
+      <div class="landing-footer-actions">
+        <a href="./play.html" class="btn btn-primary">进入操作页</a>
+        <button id="openGuideBtnBottom" class="btn btn-dark" type="button">再看一遍玩法</button>
+      </div>
+    </section>
+
+    <footer class="home-footer">
+      <div class="home-footer-brand">
+        <img src="./jpg/logo.webp" alt="Flap渔场" />
+        <div>
+          <strong>Flap渔场</strong>
+          <span>养得快，守得住，偷得准，分得多。</span>
+        </div>
+      </div>
+      <div class="home-footer-disclaimer">
+        <p>免责声明：本游戏为去中心化实验性应用，所有数据与规则均由智能合约控制。玩家参与本游戏即表示理解并接受智能合约的潜在风险，包括但不限于资金损失、合约漏洞等。开发团队不提供任何收益保证，请玩家在自己可承受的风险范围内理性参与。</p>
+      </div>
+      <div class="home-footer-socials">
+        <a href="https://x.com/Flapfish_bsc" target="_blank" rel="noopener noreferrer" title="推特 (X)">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"></path><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path></svg>
+        </a>
+        <a href="https://t.me/Flapfish" target="_blank" rel="noopener noreferrer" title="电报 (Telegram)">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4"></path></svg>
+        </a>
+      </div>
+    </footer>
+  </main>
+
+  <div id="guideModal" class="guide-modal hidden">
+    <div class="guide-panel guide-panel-large">
+      <button id="closeGuideBtn" class="guide-close" type="button">×</button>
+      <div class="guide-hero-card">
+        <div class="guide-badge">Flap链上互动渔场</div>
+        <h3>玩法介绍</h3>
+        <p class="guide-slogan">养鱼、偷捕、起网，按渔获积分分奖池。</p>
+        <p class="guide-intro">Flap渔场是一个“鱼塘经营 + 偷捕博弈 + 周期分红”的链上互动玩法。玩家通过购买鱼苗、投放鱼塘、增氧催熟、布置护网、发起偷捕，争夺每期奖池释放的 BNB。</p>
+        <div class="guide-metrics">
+          <div class="guide-metric"><span>默认鱼塘</span><strong>3</strong></div>
+          <div class="guide-metric"><span>最大鱼塘</span><strong>8</strong></div>
+          <div class="guide-metric"><span>捕捞期</span><strong>2小时/期</strong></div>
+          <div class="guide-metric"><span>奖池分流</span><strong>90% / 10%</strong></div>
+        </div>
+      </div>
+      <div class="guide-content guide-rich-content">
+        <div class="guide-feature-grid">
+          <div class="guide-feature-card"><h4>经营成长</h4><p>买鱼苗、投塘位、扩鱼塘，决定你的产能上限。</p></div>
+          <div class="guide-feature-card"><h4>攻防博弈</h4><p>增氧抢时间，护网做防守，偷捕抢走别人部分积分收益。</p></div>
+          <div class="guide-feature-card"><h4>周期分红</h4><p>最后不是比鱼多，而是比积分高，积分越高分到的 BNB 越多。</p></div>
+        </div>
+        <div class="guide-section"><h4>参与流程</h4><div class="guide-step-list"><div class="guide-step"><b>01</b><span>默认拥有 3 个鱼塘</span></div><div class="guide-step"><b>02</b><span>购买鱼苗并投放空闲塘位</span></div><div class="guide-step"><b>03</b><span>增氧提速或布置护网</span></div><div class="guide-step"><b>04</b><span>也可对其他玩家发起偷捕</span></div><div class="guide-step"><b>05</b><span>成熟后起网，结算渔获积分</span></div><div class="guide-step"><b>06</b><span>期末按积分占比领取 BNB</span></div></div></div>
+        <div class="guide-section"><h4>鱼苗档位</h4><div class="guide-seed-grid"><div class="guide-seed-card seed-yellow"><strong>小黄鱼</strong><p>15分钟 · 10,000 代币</p><span>基础积分 1 · 偷捕窗口 3分钟 · 增氧 0.001 BNB</span></div><div class="guide-seed-card seed-purple"><strong>海鲈鱼</strong><p>45分钟 · 50,000 代币</p><span>基础积分 6 · 偷捕窗口 8分钟 · 增氧 0.003 BNB</span></div><div class="guide-seed-card seed-blue"><strong>蓝鳍金枪</strong><p>2小时 · 150,000 代币</p><span>基础积分 22 · 偷捕窗口 15分钟 · 增氧 0.008 BNB</span></div></div></div>
+        <div class="guide-section"><h4>奖池规则</h4><div class="guide-rule-grid"><div class="guide-rule-card"><strong>资金来源</strong><p>扩塘、增氧、护网与主动充值的 BNB，90% 进入渔场奖池，10% 进入运营池。</p></div><div class="guide-rule-card"><strong>结算方式</strong><p>每期释放本期渔池和滚存渔池各 50%，按个人积分占比分配。</p></div></div></div>
+      </div>
+      <a href="./play.html" class="btn btn-primary btn-block">去操作页</a>
+    </div>
+  </div>
+
+  <div id="faqModal" class="guide-modal hidden">
+    <div class="guide-panel faq-panel">
+      <button id="closeFaqBtn" class="guide-close" type="button">×</button>
+      <h3>常见问题 FAQ</h3>
+      <div class="faq-list">
+        <div class="faq-item">
+          <h4>Q：不花 BNB 能玩吗？</h4>
+          <p>可以购买鱼苗和投苗，但如果不扩塘、不增氧、不布防，收益效率和防守能力会偏弱。</p>
+        </div>
+        <div class="faq-item">
+          <h4>Q：积分可以提现吗？</h4>
+          <p>积分本身不能提现，积分是分红凭证。捕捞期结束后，按积分占比领取 BNB。</p>
+        </div>
+        <div class="faq-item">
+          <h4>Q：偷捕会偷走我的鱼吗？</h4>
+          <p>不会直接偷走整条鱼，偷捕偷走的是你最终积分收益的一部分。</p>
+        </div>
+        <div class="faq-item">
+          <h4>Q：护网有什么用？</h4>
+          <p>护网可以降低被偷捕次数，尤其适合保护高价值鱼。</p>
+        </div>
+        <div class="faq-item">
+          <h4>Q：为什么奖池不会一次分光？</h4>
+          <p>因为系统每期只释放一部分，本期渔池和滚存渔池各释放 50%，剩余部分会滚入后续周期，保证后续持续有奖池。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="homeInfoModal" class="guide-modal hidden">
+    <div class="guide-panel home-info-panel">
+      <button id="closeHomeInfoBtn" class="guide-close" type="button">×</button>
+      <h3 id="homeInfoTitle">提示</h3>
+      <p id="homeInfoText" class="home-info-text">请先完成当前操作。</p>
+      <button id="confirmHomeInfoBtn" class="btn btn-primary btn-block" type="button">我知道了</button>
+    </div>
+  </div>
+
+  <script src="./js/home.js"></script>
+</body>
+</html>

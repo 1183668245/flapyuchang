@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flap渔场 - 操作台</title>
+  <link rel="icon" type="image/webp" href="./jpg/favicon.ico.webp" />
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body class="play-page play-entering">
+  <div id="pageLoader" class="page-loader">
+    <div class="page-loader-center">
+      <img class="page-loader-logo" src="./jpg/logo.webp" alt="Flap渔场" />
+      <div class="page-loader-title">正在进入渔场</div>
+      <div class="page-loader-spinner"></div>
+    </div>
+  </div>
+
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="sea-bubbles" aria-hidden="true">
+    <span class="bubble bubble-1"></span>
+    <span class="bubble bubble-2"></span>
+    <span class="bubble bubble-3"></span>
+    <span class="bubble bubble-4"></span>
+    <span class="bubble bubble-5"></span>
+    <span class="bubble bubble-6"></span>
+    <span class="bubble bubble-7"></span>
+    <span class="bubble bubble-8"></span>
+  </div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <div class="brand">
+        <img class="brand-logo-img" src="./jpg/logo.webp" alt="Flap渔场" />
+        <div class="brand-text">Flap渔场</div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="./index.html">返回首页</a>
+        <a href="#actions" class="active">我的渔场</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="connectBtn" class="btn btn-dark">连接钱包</button>
+        <button id="refreshAllBtn" class="btn btn-primary">同步数据</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div id="debugStateBar" class="debug-state-bar">
+      <span id="debugWalletState" class="debug-chip">钱包：待识别</span>
+      <span id="debugContractState" class="debug-chip">合约：待初始化</span>
+      <span id="debugPondState" class="debug-chip">鱼塘：待渲染</span>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="overview-grid">
+      <div class="panel panel-wide">
+        <div class="panel-title">钱包信息</div>
+        <div class="wallet-grid">
+          <div class="metric">
+            <span>当前账户</span>
+            <strong id="walletAddress">未连接</strong>
+          </div>
+          <div class="metric">
+            <span>钱包 BNB</span>
+            <strong id="nativeBalance" class="metric-value">-</strong>
+          </div>
+          <div class="metric">
+            <span>代币余额</span>
+            <strong id="tokenBalance" class="metric-value metric-value-token">-</strong>
+          </div>
+          <div class="metric">
+            <span>代币授权</span>
+            <strong id="tokenAllowance" class="metric-value metric-value-token">-</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel vault-panel">
+        <div class="panel-title">奖池余额</div>
+        <div class="vault-balance-box">
+          <strong id="vaultBalance" class="vault-balance-value">-</strong>
+          <span class="vault-balance-note">当前渔场合约中的总 BNB 余额</span>
+          <div class="vault-sub-row">
+            <span>本期可分渔场</span>
+            <strong id="vaultDistributable" class="vault-sub-value">-</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel season-panel">
+        <div class="panel-title">捕捞期</div>
+        <div class="info-list">
+          <div class="info-row"><span>当前期数</span><strong id="seasonId">-</strong></div>
+          <div class="info-row"><span>剩余时间</span><div class="season-end-box"><strong id="seasonEndTime">-</strong><em id="seasonEndAt">结束于 --:--</em></div></div>
+          <div class="info-row"><span>本期总积分</span><strong id="seasonTickets">-</strong></div>
+          <div class="info-row"><span>我的本期积分</span><strong id="mySeasonTickets">-</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 新增：游戏化大厅核心区 -->
+    <section class="game-hall-section">
+      <div class="game-hall-layout">
+        <!-- 左侧：商城区域 -->
+        <div class="game-shop-area panel">
+          <div class="panel-title shop-title">🐟 鱼苗商城</div>
+          <div class="shop-selected-box">
+            <div class="shop-selected-head">
+              <strong id="selectedSeedName">已选：小黄鱼</strong>
+              <span id="selectedSeedInventory">库存 0</span>
+            </div>
+            <div id="selectedSeedSummary" class="shop-selected-summary">请选择鱼苗后购买，再投放到空闲塘位。</div>
+          </div>
+          <div id="seedCards" class="seed-grid">
+            <!-- JS 动态渲染三种鱼苗卡片 -->
+          </div>
+          <div class="shop-action-box">
+            <label>购买数量</label>
+            <div class="quantity-stepper">
+              <button id="buySeedMinusBtn" class="quantity-btn" type="button">−</button>
+              <input id="buySeedAmount" class="input quantity-input" type="number" min="1" value="1" />
+              <button id="buySeedPlusBtn" class="quantity-btn" type="button">+</button>
+            </div>
+            <button id="buySeedBtn" class="btn btn-primary btn-block">购买鱼苗</button>
+          </div>
+
+          <div class="shop-activity-box">
+            <div class="shop-activity-head">
+              <strong>渔场动态</strong>
+              <div class="shop-activity-actions">
+                <span>最近 100 条</span>
+                <button id="openActivityModalBtn" class="btn btn-dark btn-small" type="button">查看更多</button>
+              </div>
+            </div>
+            <div id="activityList" class="activity-list activity-list-preview"></div>
+          </div>
+        </div>
+
+        <!-- 中间：我的鱼塘核心区 -->
+        <div class="game-fishery-area panel">
+          <div class="fishery-header">
+            <div class="panel-title">🌊 我的鱼塘</div>
+            <button id="buyLandBtn" class="btn btn-dark btn-small">➕ 扩建鱼塘</button>
+          </div>
+          <div id="actionGuideBar" class="action-guide-bar">
+            <strong id="actionGuideTitle">下一步：选择鱼苗</strong>
+            <span id="actionGuideText">先买鱼苗，再投放到空闲塘位。</span>
+          </div>
+          <div id="pondLoading" class="pond-loading is-active">
+            <div class="pond-loading-spinner"></div>
+            <strong id="pondLoadingTitle">正在识别钱包状态</strong>
+            <span id="pondLoadingText">正在同步你的鱼塘与链上数据...</span>
+          </div>
+          <div id="pondCards" class="pond-grid">
+            <!-- JS 动态渲染 8 个塘位卡片 -->
+          </div>
+        </div>
+
+        <!-- 右侧：偷捕 / 分红 / 推荐 -->
+        <div class="game-radar-area">
+          <div class="panel radar-panel">
+            <div class="panel-title">🎯 发起偷捕</div>
+            <div class="action-note">单次消耗 1000 代币。</div>
+            <button id="openObserveDrawerBtn" class="btn btn-dark btn-block">打开目标榜单</button>
+            <label>目标玩家地址</label>
+            <input id="stealTarget" class="input" placeholder="0x..." />
+            <label>目标塘位</label>
+            <div class="quantity-stepper steal-stepper">
+              <button id="stealPlotMinusBtn" class="quantity-btn" type="button">−</button>
+              <input id="stealPlotId" class="input quantity-input" type="number" min="1" value="1" />
+              <button id="stealPlotPlusBtn" class="quantity-btn" type="button">+</button>
+            </div>
+            <button id="stealBtn" class="btn btn-danger btn-block">发起偷捕</button>
+          </div>
+
+
+          <div class="panel">
+            <div class="panel-title">💰 领取分红</div>
+            <div class="action-note">捕捞期结束后，按本期积分占比领取 BNB 分红。</div>
+            <label>捕捞期编号</label>
+            <input id="claimSeasonId" class="input" type="number" min="1" value="1" />
+            <button id="claimBtn" class="btn btn-primary btn-block">领取分红</button>
+          </div>
+          
+          <div class="panel">
+            <div class="panel-title">🤝 绑定推荐人</div>
+            <div class="action-note">每个地址仅可绑定一次推荐关系，推荐奖励为额外新增积分。</div>
+            <input id="referrerAddress" class="input" placeholder="输入推荐人地址" />
+            <div id="referrerStatus" class="action-note">当前未绑定推荐人。</div>
+            <button id="bindReferrerBtn" class="btn btn-dark btn-block">绑定推荐人</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 隐藏原有的表单操作区和状态读取区 -->
+    <section id="actions" class="section" style="display: none;">
+      <div class="section-head">
+        <h2>核心操作</h2>
+        <p>这里是交易和读取主界面，连接钱包后可直接进行鱼苗购买、投苗、偷捕和领奖。</p>
+      </div>
+
+      <div class="action-grid">
+        <div class="panel">
+          <div class="panel-title">绑定推荐人</div>
+          <label>推荐人地址</label>
+          <input id="referrerAddress" class="input" placeholder="0x..." />
+          <button id="bindReferrerBtn" class="btn btn-primary btn-block">绑定推荐人</button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">购买鱼苗</div>
+          <label>鱼苗类型</label>
+          <select id="buySeedType" class="input">
+            <option value="0">0 - 小黄鱼</option>
+            <option value="1">1 - 海鲈鱼</option>
+            <option value="2">2 - 蓝鳍金枪</option>
+          </select>
+          <label>购买数量</label>
+          <input id="buySeedAmount" class="input" type="number" min="1" value="1" />
+          <label>总代币成本</label>
+          <input id="buySeedTokenCost" class="input" placeholder="例如 10000" />
+          <div class="helper-row">
+            <button id="fillBuyCostBtn" class="btn btn-dark btn-small">自动计算成本</button>
+          </div>
+          <button id="buySeedBtn" class="btn btn-primary btn-block">购买鱼苗</button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">投放鱼苗</div>
+          <label>塘位编号</label>
+          <input id="plantPlotId" class="input" type="number" min="0" value="0" />
+          <label>鱼苗类型</label>
+          <select id="plantSeedType" class="input">
+            <option value="0">0 - 小黄鱼</option>
+            <option value="1">1 - 海鲈鱼</option>
+            <option value="2">2 - 蓝鳍金枪</option>
+          </select>
+          <button id="plantBtn" class="btn btn-primary btn-block">投苗</button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">扩建鱼塘</div>
+          <label>支付 BNB</label>
+          <input id="buyLandValue" class="input" placeholder="例如 0.005" />
+          <button id="buyLandBtn" class="btn btn-primary btn-block">扩建鱼塘</button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">增氧</div>
+          <label>塘位编号</label>
+          <input id="fertilizePlotId" class="input" type="number" min="0" value="0" />
+          <label>支付 BNB</label>
+          <input id="fertilizeValue" class="input" placeholder="例如 0.001" />
+          <button id="fertilizeBtn" class="btn btn-primary btn-block">增氧</button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">布置护网</div>
+          <label>塘位编号</label>
+          <input id="scarecrowPlotId" class="input" type="number" min="0" value="0" />
+          <label>支付 BNB</label>
+          <input id="scarecrowValue" class="input" placeholder="例如 0.003" value="0.003" />
+          <button id="scarecrowBtn" class="btn btn-primary btn-block">布置护网</button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">发起偷捕</div>
+          <label>目标地址</label>
+          <input id="stealTarget" class="input" placeholder="0x..." />
+          <label>目标塘位编号</label>
+          <input id="stealPlotId" class="input" type="number" min="0" value="0" />
+          <label>总代币成本</label>
+          <input id="stealTokenCost" class="input" placeholder="固定 1000" value="1000" />
+          <button id="stealBtn" class="btn btn-danger btn-block">发起偷捕</button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">起网</div>
+          <label>塘位编号</label>
+          <input id="harvestPlotId" class="input" type="number" min="0" value="0" />
+          <button id="harvestBtn" class="btn btn-primary btn-block">起网</button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">领取分红</div>
+          <label>捕捞期编号</label>
+          <input id="claimSeasonId" class="input" type="number" min="1" value="1" />
+          <button id="claimBtn" class="btn btn-primary btn-block">领取分红</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="status" class="section" style="display: none;">
+      <div class="section-head">
+        <h2>玩家状态</h2>
+        <p>读取库存和塘位状态，方便确认当前能否投苗、起网或继续增氧。</p>
+      </div>
+
+      <div class="status-grid">
+        <div class="panel">
+          <div class="panel-title">鱼苗库存</div>
+          <label>查询鱼苗类型</label>
+          <select id="inventorySeedType" class="input">
+            <option value="0">0 - 小黄鱼</option>
+            <option value="1">1 - 海鲈鱼</option>
+            <option value="2">2 - 蓝鳍金枪</option>
+          </select>
+          <button id="loadInventoryBtn" class="btn btn-dark btn-block">读取库存</button>
+          <div class="result-box" id="inventoryResult">等待读取...</div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">塘位状态</div>
+          <label>查询地址</label>
+          <input id="plotUserAddress" class="input" placeholder="默认当前钱包地址" />
+          <label>塘位编号</label>
+          <input id="plotId" class="input" type="number" min="0" value="0" />
+          <button id="loadPlotBtn" class="btn btn-dark btn-block">读取塘位</button>
+          <div class="result-box" id="plotResult">等待读取...</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="logs" class="section" style="display: none;">
+      <div class="section-head">
+        <h2>执行日志</h2>
+        <p>所有读取、授权、交易发送、确认结果都会输出在这里。</p>
+      </div>
+
+      <div class="panel">
+        <pre id="logBox" class="log-box">等待操作...</pre>
+      </div>
+    </section>
+  </main>
+
+  <div id="observeDrawer" class="plant-modal">
+    <div class="plant-modal-panel observe-modal-panel">
+      <div class="plant-modal-head observe-drawer-head">
+        <div>
+          <strong>可观察目标</strong>
+          <span>这里会展示你最近观察过的目标，点击目标塘位即可自动带入地址与编号。</span>
+        </div>
+        <button id="closeObserveDrawerBtn" class="plant-modal-close" type="button">×</button>
+      </div>
+      <div id="observeTargetList" class="observe-target-list"></div>
+    </div>
+  </div>
+
+  <div id="plantSeedModal" class="plant-modal">
+    <div class="plant-modal-panel">
+      <div class="plant-modal-head">
+        <div>
+          <strong id="plantModalTitle">选择投放鱼苗</strong>
+          <span id="plantModalText">请选择要投放到该塘位的鱼苗</span>
+        </div>
+        <button id="closePlantModalBtn" class="plant-modal-close" type="button">×</button>
+      </div>
+      <div id="plantSeedModalCards" class="plant-modal-grid"></div>
+      <div class="plant-modal-foot">
+        <span id="plantModalSummary">当前未选择鱼苗</span>
+        <button id="confirmPlantBtn" class="btn btn-primary">确认投放</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="actionConfirmModal" class="plant-modal">
+    <div class="plant-modal-panel confirm-modal-panel">
+      <div class="plant-modal-head">
+        <div>
+          <strong id="actionConfirmTitle">确认操作</strong>
+          <span id="actionConfirmText">确认继续本次操作吗？</span>
+        </div>
+        <button id="closeActionConfirmBtn" class="plant-modal-close" type="button">×</button>
+      </div>
+      <div class="confirm-modal-body">
+        <div class="confirm-modal-cost" id="actionConfirmCost">本次将消耗 0 BNB</div>
+      </div>
+      <div class="plant-modal-foot confirm-modal-foot">
+        <button id="cancelActionConfirmBtn" class="btn btn-dark" type="button">取消</button>
+        <button id="submitActionConfirmBtn" class="btn btn-primary" type="button">确认继续</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="infoModal" class="plant-modal">
+    <div class="plant-modal-panel info-modal-panel">
+      <div class="plant-modal-head">
+        <div>
+          <strong id="infoModalTitle">提示</strong>
+          <span id="infoModalText">请先完成当前操作。</span>
+        </div>
+        <button id="closeInfoModalBtn" class="plant-modal-close" type="button">×</button>
+      </div>
+      <div class="plant-modal-foot confirm-modal-foot">
+        <button id="confirmInfoModalBtn" class="btn btn-primary" type="button">我知道了</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="activityModal" class="plant-modal">
+    <div class="plant-modal-panel activity-modal-panel">
+      <div class="plant-modal-head">
+        <div>
+          <strong>渔场动态</strong>
+          <span>最近 100 条链上行为记录</span>
+        </div>
+        <button id="closeActivityModalBtn" class="plant-modal-close" type="button">×</button>
+      </div>
+      <div id="activityModalList" class="activity-list activity-modal-list"></div>
+    </div>
+  </div>
+
+  <div id="walletBusyOverlay" class="wallet-busy-overlay">
+    <div class="wallet-busy-panel">
+      <img class="wallet-busy-logo" src="./jpg/logo.webp" alt="Flap渔场" />
+      <strong id="walletBusyTitle">等待钱包确认</strong>
+      <span id="walletBusyText">请在钱包中完成当前操作，不要重复点击。</span>
+      <div class="wallet-busy-spinner"></div>
+    </div>
+  </div>
+
+  <div id="txStatusCard" class="tx-status-card">
+    <strong id="txStatusTitle">交易确认中</strong>
+    <span id="txStatusText">交易已发送，正在等待链上确认...</span>
+    <code id="txStatusHash"></code>
+  </div>
+
+  <div id="toastWrap" class="toast-wrap"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.2/dist/ethers.umd.min.js"></script>
+  <script src="./js/app.js"></script>
+  <script src="./js/abi.js"></script>
+  <script src="./js/config.js"></script>
+</body>
+</html>
