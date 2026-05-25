@@ -133,6 +133,11 @@ function getWalletProvider() {
   return walletProvider;
 }
 
+function getRpcUrls() {
+  const list = [window.APP_CONFIG.rpcUrl, ...(window.APP_CONFIG.rpcUrls || [])].filter(Boolean);
+  return [...new Set(list)];
+}
+
 async function ensureCorrectNetwork() {
   const injected = getWalletProvider();
   if (!injected) return;
@@ -151,7 +156,7 @@ async function ensureCorrectNetwork() {
         params: [{
           chainId: getChainHex(window.APP_CONFIG.chainId),
           chainName: window.APP_CONFIG.chainName,
-          rpcUrls: [window.APP_CONFIG.rpcUrl],
+          rpcUrls: getRpcUrls(),
           nativeCurrency: { name: "BNB", symbol: "BNB", decimals: 18 },
           blockExplorerUrls: ["https://bscscan.com"]
         }]
@@ -407,8 +412,16 @@ function finishPageLoader() {
 }
 
 async function initReadContracts() {
-  if (window.APP_CONFIG.rpcUrl && !readProvider) {
-    readProvider = new ethers.JsonRpcProvider(window.APP_CONFIG.rpcUrl);
+  if (!readProvider) {
+    const rpcUrls = getRpcUrls();
+    if (!rpcUrls.length) return;
+    const providers = rpcUrls.map((url, index) => ({
+      provider: new ethers.JsonRpcProvider(url),
+      priority: index + 1,
+      weight: 1,
+      stallTimeout: 1200
+    }));
+    readProvider = providers.length === 1 ? providers[0].provider : new ethers.FallbackProvider(providers);
     readVaultContract = new ethers.Contract(window.APP_CONFIG.vaultAddress, window.CAIFARM_VAULT_ABI, readProvider);
     readTokenContract = new ethers.Contract(window.APP_CONFIG.tokenAddress, window.ERC20_ABI, readProvider);
     tokenSymbol = await readTokenContract.symbol().catch(() => "TOKEN");
